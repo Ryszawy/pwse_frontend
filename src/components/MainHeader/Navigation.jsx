@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import AuthContext from '../Store/auth-context';
 import classes from './Navigation.module.css';
@@ -11,15 +12,22 @@ const Navigation = () => {
       <ul>
         {ctx.isLoggedIn && (
           <li>
-            <a href="/">Users</a>
+            <NavLink to="/users" end>
+              Users
+            </NavLink>
           </li>
         )}
         <li>
-          <a href="/">About</a>
+          <NavLink to="/about">About</NavLink>
         </li>
         {ctx.isLoggedIn && (
           <li>
             <button onClick={ctx.onLogout}>Logout</button>
+          </li>
+        )}
+        {!ctx.isLoggedIn && (
+          <li>
+            <NavLink to="login">Login</NavLink>
           </li>
         )}
       </ul>

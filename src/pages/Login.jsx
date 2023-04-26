@@ -6,6 +6,9 @@ import React, {
   useRef,
 } from 'react';
 
+import { Link } from 'react-router-dom';
+import GoogleButton from 'react-google-button';
+
 import Card from '../components/UI/Card';
 import classes from './Login.module.css';
 import Button from '../components/UI/Button';
@@ -45,7 +48,7 @@ const Login = () => {
     isValid: null,
   });
 
-  const { isValid: emailIsValid } = emailState; 
+  const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
 
   useEffect(() => {
@@ -93,35 +96,52 @@ const Login = () => {
   };
 
   return (
-    <Card className={classes.login}>
-      <form onSubmit={submitHandler}>
-        <Input
-          ref={emailInputRef}
-          id="email"
-          label="E-Mail"
-          type="email"
-          isValid={emailIsValid}
-          value={emailState.value}
-          onChange={emailChangeHandler}
-          onBlur={validateEmailHandler}
-        />
-        <Input
-          ref={passwordInputRef}
-          id="password"
-          label="Password"
-          type="password"
-          isValid={passwordIsValid}
-          value={passwordState.value}
-          onChange={passwordChangeHandler}
-          onBlur={validatePasswordHandler}
-        />
-        <div className={classes.actions}>
-          <Button type="submit" className={classes.btn}>
-            Login
+    <React.Fragment>
+      <Card className={classes.login}>
+        <form onSubmit={submitHandler}>
+          <Input
+            ref={emailInputRef}
+            id="email"
+            label="E-Mail"
+            type="email"
+            isValid={emailIsValid}
+            value={emailState.value}
+            onChange={emailChangeHandler}
+            onBlur={validateEmailHandler}
+          />
+          <Input
+            ref={passwordInputRef}
+            id="password"
+            label="Password"
+            type="password"
+            isValid={passwordIsValid}
+            value={passwordState.value}
+            onChange={passwordChangeHandler}
+            onBlur={validatePasswordHandler}
+          />
+          <div className={classes.actions}>
+            <div className={classes.flex}>
+              <Button type="submit" className={classes.btn}>
+                Login
+              </Button>
+              <GoogleButton
+                onClick={() => {
+                  console.log('Google button clicked');
+                }}
+              />
+            </div>
+          </div>
+        </form>
+      </Card>
+      <div className={classes['center-button']}>
+        <Link to="/register">
+          <Button className={classes.btn}>
+            Don't have account? <br />
+            Register
           </Button>
-        </div>
-      </form>
-    </Card>
+        </Link>
+      </div>
+    </React.Fragment>
   );
 };
 
