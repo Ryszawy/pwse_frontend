@@ -50,13 +50,11 @@ const Login = () => {
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log('typing...');
       setFormIsValid(emailState.isValid && passwordState.isValid);
     }, 500);
 
     return () => {
       //clean-up
-      console.log('clean');
       clearTimeout(identifier);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,7 +84,6 @@ const Login = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
-      console.log("elo")
       authCtx.onLogin(emailState.value, passwordState.value);
     } else if (!emailIsValid) {
       emailInputRef.current.focus();

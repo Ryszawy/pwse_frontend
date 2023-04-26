@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = React.createContext({
   isLoggedIn: false,
@@ -7,6 +8,8 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
+  // const authURL = import.meta.env.VITE_REACT_AUTH_URL;
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -23,8 +26,20 @@ export const AuthContextProvider = (props) => {
   };
 
   const loginHandler = () => {
-    localStorage.setItem('isLoggedIn', '1');
-    setIsLoggedIn(true);
+    console.log(email.value, password.value)
+    axios
+      .post('http://localhost:5000/users/login', {
+        email: email.value,
+        password: password.value,
+      })
+      .then(function (response) {
+        console.log(response.token);
+        localStorage.setItem('isLoggedIn', '1');
+        setIsLoggedIn(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
