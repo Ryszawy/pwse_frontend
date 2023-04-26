@@ -12,7 +12,7 @@ const Navigation = () => {
       <ul>
         {ctx.isLoggedIn && (
           <li>
-            <NavLink to="/users" end>
+            <NavLink to="/profile" end>
               Users
             </NavLink>
           </li>

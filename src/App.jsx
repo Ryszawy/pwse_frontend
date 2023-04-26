@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Root from './pages/Root';
 import Register from './pages/Register';
 import About from './pages/About';
+import UserProfile from './pages/UserProfile';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
       { index: true, element: <LandingPage /> },
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register />},
-      { path: 'about', element: <About />}
+      { path: 'profile', element: <UserProfile />},
+      { path: 'about', element: <About />},
     ],
   },
 ]);
