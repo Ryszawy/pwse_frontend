@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
 
 import Card from '../components/UI/Card';
@@ -51,17 +51,17 @@ const Login = () => {
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      setFormIsValid(emailState.isValid && passwordState.isValid);
-    }, 500);
+  // useEffect(() => {
+  //   const identifier = setTimeout(() => {
+  //     setFormIsValid(emailState.isValid && passwordState.isValid);
+  //   }, 500);
 
-    return () => {
-      //clean-up
-      clearTimeout(identifier);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [emailIsValid, passwordIsValid]);
+  //   return () => {
+  //     //clean-up
+  //     clearTimeout(identifier);
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [emailIsValid, passwordIsValid]);
 
   const authCtx = useContext(AuthContext);
 
@@ -88,6 +88,7 @@ const Login = () => {
     event.preventDefault();
     if (formIsValid) {
       authCtx.onLogin(emailState.value, passwordState.value);
+      navigate('/');
     } else if (!emailIsValid) {
       emailInputRef.current.focus();
     } else {

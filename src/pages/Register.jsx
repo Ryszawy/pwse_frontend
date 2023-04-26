@@ -99,8 +99,8 @@ const Register = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
-      navigate('/');
-      context.onRegistered(emailState.value, passwordState.value);
+      context.onRegister(emailState.value, passwordState.value);
+      navigate('/login');
     } else if (!emailIsValid) {
       emailInputRef.current.focus();
     } else if (!passwordIsValid){

@@ -5,6 +5,7 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   onLogout: () => {},
   onLogin: (email, password) => {},
+  onRegister: (username, email, password, profileURL) => {},
 });
 
 export const AuthContextProvider = (props) => {
@@ -40,13 +41,28 @@ export const AuthContextProvider = (props) => {
       });
   };
 
+  const registeringHandler = () => {
+    axios
+      .post('http://localhost:5000/users/register', {
+        email: email.value,
+        password: password.value,
+      })
+      .then(function (response) {
+        localStorage.setItem('isLoggedIn', response.data.token);
+        setIsLoggedIn(true);
+      })
+      .catch(function (error) {
+        // console.log(error);
+      });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn,
         onLogout: logoutHandler,
         onLogin: loginHandler,
-
+        onRegister: registeringHandler,
       }}
     >
       {props.children}
