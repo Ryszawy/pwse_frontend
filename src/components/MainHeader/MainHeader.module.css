@@ -14,3 +14,10 @@
 .main-header h1 {
   color: white;
 }
+
+.icon {
+  display: flex;
+  flex: 1;
+  gap: 5px;
+  align-items: center;
+}
