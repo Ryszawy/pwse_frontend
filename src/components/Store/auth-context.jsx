@@ -15,7 +15,7 @@ export const AuthContextProvider = (props) => {
   useEffect(() => {
     const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
 
-    if (storedUserLoggedInInformation === '1') {
+    if (storedUserLoggedInInformation != null) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -26,19 +26,17 @@ export const AuthContextProvider = (props) => {
   };
 
   const loginHandler = () => {
-    console.log(email.value, password.value)
     axios
       .post('http://localhost:5000/users/login', {
         email: email.value,
         password: password.value,
       })
       .then(function (response) {
-        console.log(response.token);
-        localStorage.setItem('isLoggedIn', '1');
+        localStorage.setItem('isLoggedIn', response.data.token);
         setIsLoggedIn(true);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -48,6 +46,7 @@ export const AuthContextProvider = (props) => {
         isLoggedIn: isLoggedIn,
         onLogout: logoutHandler,
         onLogin: loginHandler,
+
       }}
     >
       {props.children}
