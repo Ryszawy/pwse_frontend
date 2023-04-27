@@ -14,6 +14,7 @@ import classes from './Login.module.css';
 import Button from '../components/UI/Button';
 import Input from '../components/UI/Input';
 import AuthContext from '../components/Store/auth-context';
+import axios from 'axios';
 
 const emailReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
@@ -91,6 +92,19 @@ const Login = () => {
     passwordState.value = '';
   };
 
+  const googleLoginHandle = () => {
+    axios
+      .get('http://localhost:5000/users/login/google')
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  };
+
   return (
     <React.Fragment>
       <Card className={classes.login}>
@@ -120,11 +134,7 @@ const Login = () => {
               <Button type="submit" className={classes.btn}>
                 Login
               </Button>
-              <GoogleButton
-                onClick={() => {
-                  console.log('Google button clicked');
-                }}
-              />
+              <GoogleButton onClick={googleLoginHandle} />
             </div>
           </div>
         </form>
