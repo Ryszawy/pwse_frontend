@@ -46,13 +46,15 @@ export const AuthContextProvider = (props) => {
       .post('http://localhost:5000/users/register', {
         email: email.value,
         password: password.value,
+        name: username.value,
+        profile_picture_url: profileURL.value,
       })
       .then(function (response) {
-        localStorage.setItem('isLoggedIn', response.data.token);
-        setIsLoggedIn(true);
+        alert('Success!');
+        console.log(response);
       })
       .catch(function (error) {
-        // console.log(error);
+        console.log(JSON.stringify(error));
       });
   };
 

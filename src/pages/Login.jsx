@@ -51,19 +51,8 @@ const Login = () => {
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     setFormIsValid(emailState.isValid && passwordState.isValid);
-  //   }, 500);
-
-  //   return () => {
-  //     //clean-up
-  //     clearTimeout(identifier);
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [emailIsValid, passwordIsValid]);
-
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -84,6 +73,10 @@ const Login = () => {
     dispatchPassword({ type: 'INPUT_BLUR' });
   };
 
+  useEffect(() => {
+    setFormIsValid(emailState.isValid && passwordState.isValid);
+  }, [emailState.isValid, passwordState.isValid]);
+
   const submitHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
@@ -94,6 +87,8 @@ const Login = () => {
     } else {
       passwordInputRef.current.focus();
     }
+    emailState.value = '';
+    passwordState.value = '';
   };
 
   return (
